@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>תהילים אותיות נשמה • ירחמיאל דוד ע"ה</title>
+
+    <!-- PWA / installable app -->
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#1a365d">
+    <link rel="icon" href="favicon-32.png" sizes="32x32">
+    <link rel="apple-touch-icon" href="apple-touch-icon.png">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="אותיות נשמה">
+
+    <!-- Google Fonts for premium Hebrew typography -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@300;400;600;700&family=Frank+Ruhl+Libre:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #fbf9f4;
+            --card-bg: #ffffff;
+            --text-color: #1a202c;
+            --primary-color: #1a365d;
+            --secondary-color: #8a7343;
+            --border-color: #e2e8f0;
+            --accent-bg: #fdfbf7;
+            --shadow: 0 4px 6px -1px rgba(0,0,0,0.05), 0 2px 4px -1px rgba(0,0,0,0.03);
+            --font-serif: 'Frank Ruhl Libre', Georgia, serif;
+            --font-sans: 'Assistant', sans-serif;
+        }
+        [data-theme="dark"] {
+            --bg-color: #0f141c;
+            --card-bg: #151c26;
+            --text-color: #e2e8f0;
+            --primary-color: #63b3ed;
+            --secondary-color: #d69e2e;
+            --border-color: #2d3748;
+            --accent-bg: #1a2333;
+            --shadow: 0 4px 6px -1px rgba(0,0,0,0.3);
+        }
+        [data-theme="sepia"] {
+            --bg-color: #f4ecd8;
+            --card-bg: #fdf6e3;
+            --text-color: #5c4a37;
+            --primary-color: #8c2d19;
+            --secondary-color: #a07818;
+            --border-color: #e6dbb9;
+            --accent-bg: #f5edd5;
+            --shadow: 0 4px 6px -1px rgba(92, 74, 55, 0.08);
+        }
+        * { box-sizing: border-box; transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease; }
+        html { scroll-behavior: smooth; }
+        body { background-color: var(--bg-color); color: var(--text-color); font-family: var(--font-serif); margin: 0; padding: 0; line-height: 1.8; -webkit-font-smoothing: antialiased; }
+        .toolbar { position: sticky; top: 0; background-color: var(--card-bg); border-bottom: 2px solid var(--secondary-color); z-index: 100; box-shadow: var(--shadow); padding: 10px 15px; padding-top: calc(10px + env(safe-area-inset-top)); }
+        .toolbar-container { max-width: 900px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; }
+        .tool-group { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+        .btn { background-color: var(--bg-color); color: var(--text-color); border: 1px solid var(--border-color); padding: 8px 12px; border-radius: 6px; cursor: pointer; font-family: var(--font-sans); font-size: 14px; font-weight: 600; display: inline-flex; align-items: center; gap: 6px; }
+        .btn:hover { border-color: var(--secondary-color); background-color: var(--accent-bg); }
+        .btn.active { background-color: var(--secondary-color); color: #ffffff; border-color: var(--secondary-color); }
+        .font-slider { display: flex; align-items: center; gap: 8px; font-family: var(--font-sans); font-size: 13px; }
+        .font-slider input { cursor: pointer; accent-color: var(--secondary-color); }
+        .scroll-control-panel { display: none; background-color: var(--accent-bg); border: 1px solid var(--secondary-color); border-radius: 6px; padding: 8px 12px; align-items: center; gap: 10px; font-family: var(--font-sans); font-size: 13px; }
+        .scroll-control-panel.active { display: flex; }
+        .scroll-control-panel input { accent-color: var(--secondary-color); cursor: pointer; }
+        .wrapper { max-width: 900px; margin: 0 auto; padding: 20px 15px 80px 15px; }
+        .cover-page { border: 6px double var(--secondary-color); background-color: var(--accent-bg); border-radius: 12px; padding: 60px 20px; text-align: center; margin-bottom: 40px; position: relative; box-shadow: var(--shadow); }
+        .cover-page::before { content: ""; position: absolute; top: 10px; bottom: 10px; left: 10px; right: 10px; border: 1px solid var(--secondary-color); pointer-events: none; }
+        .cover-bsd { font-family: var(--font-sans); font-size: 14px; font-weight: bold; color: var(--secondary-color); margin-bottom: 20px; }
+        .cover-pretitle { font-size: 18px; color: var(--text-color); margin-bottom: 10px; font-weight: 500; }
+        .cover-title { font-size: 40px; color: var(--primary-color); font-weight: 900; margin: 15px 0; letter-spacing: 1px; line-height: 1.2; }
+        .cover-subtitle { font-size: 20px; color: var(--secondary-color); margin-bottom: 30px; font-weight: 600; }
+        .cover-line { width: 80px; height: 2px; background-color: var(--secondary-color); margin: 20px auto; }
+        .cover-dedication { font-size: 32px; font-weight: bold; color: var(--primary-color); margin: 25px 0 10px 0; }
+        .cover-postdedication { font-size: 18px; font-style: italic; margin-bottom: 40px; }
+        .instruction-box { background-color: var(--card-bg); border: 1px solid var(--border-color); border-right: 4px solid var(--secondary-color); border-radius: 0 8px 8px 0; padding: 20px; margin-bottom: 35px; box-shadow: var(--shadow); }
+        .instruction-title { font-family: var(--font-sans); font-size: 16px; font-weight: bold; color: var(--secondary-color); margin-top: 0; margin-bottom: 8px; }
+        .navigation-banner { background-color: var(--card-bg); border: 1px solid var(--border-color); border-radius: 8px; padding: 12px; margin-bottom: 30px; box-shadow: var(--shadow); text-align: center; }
+        .nav-title { font-family: var(--font-sans); font-size: 13px; font-weight: bold; color: var(--secondary-color); margin-bottom: 8px; }
+        .letters-nav { display: flex; justify-content: center; flex-wrap: wrap; gap: 6px; }
+        .nav-dot { background-color: var(--accent-bg); border: 1px solid var(--border-color); color: var(--text-color); width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; border-radius: 50%; cursor: pointer; font-weight: bold; font-size: 15px; text-decoration: none; font-family: var(--font-serif); }
+        .nav-dot:hover, .nav-dot.active-nav { border-color: var(--secondary-color); background-color: var(--secondary-color); color: #ffffff; }
+        .nav-separator { width: 1px; background-color: var(--border-color); margin: 0 5px; }
+        .section-card { background-color: var(--card-bg); border: 1px solid var(--border-color); border-radius: 8px; padding: 30px 25px; margin-bottom: 30px; box-shadow: var(--shadow); position: relative; scroll-margin-top: 90px; }
+        .letter-marker { position: absolute; top: -15px; left: 25px; background-color: var(--secondary-color); color: #ffffff; font-family: var(--font-serif); font-weight: bold; font-size: 18px; padding: 2px 14px; border-radius: 20px; box-shadow: var(--shadow); }
+        .section-title { color: var(--primary-color); font-size: 20px; border-bottom: 2px solid var(--secondary-color); padding-bottom: 6px; margin-top: 0; margin-bottom: 20px; font-weight: bold; display: inline-block; }
+        .verse-block { text-align: justify; text-justify: inter-word; }
+        .verse-text { font-size: 23px; line-height: 1.9; margin: 0 0 15px 0; word-spacing: 1px; }
+        .verse-num { color: var(--secondary-color); font-weight: bold; margin-left: 5px; font-size: 0.9em; }
+        .personalize-panel { background-color: var(--accent-bg); border: 1px solid var(--secondary-color); border-radius: 8px; padding: 15px; margin-bottom: 20px; font-family: var(--font-sans); }
+        .input-group { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+        .input-field { border: 1px solid var(--border-color); background-color: var(--card-bg); color: var(--text-color); padding: 6px 12px; border-radius: 4px; font-size: 14px; outline: none; }
+        .input-field:focus { border-color: var(--secondary-color); }
+        .prayer-box { background-color: var(--accent-bg); border-right: 4px solid var(--secondary-color); padding: 25px; border-radius: 0 6px 6px 0; }
+        footer { text-align: center; font-family: var(--font-sans); font-size: 13px; color: var(--text-color); opacity: 0.7; margin-top: 60px; padding-top: 25px; border-top: 1px solid var(--border-color); }
+        .float-btn { position: fixed; bottom: 20px; left: 20px; background-color: var(--primary-color); color: #ffffff; border: none; width: 45px; height: 45px; border-radius: 50%; cursor: pointer; box-shadow: 0 4px 10px rgba(0,0,0,0.15); display: none; align-items: center; justify-content: center; font-size: 20px; z-index: 99; }
+        .float-btn.visible { display: flex; }
+        .install-btn { display: none; }
+        .install-btn.show { display: inline-flex; }
+        @media print {
+            body { background-color: #ffffff !important; color: #000000 !important; font-size: 12pt; }
+            .toolbar, .navigation-banner, .float-btn, footer, .personalize-panel { display: none !important; }
+            .wrapper { padding: 0; max-width: 100%; }
+            .cover-page { border: 4px solid #000000 !important; background-color: transparent !important; box-shadow: none !important; page-break-after: always; padding: 100px 20px; }
+            .cover-page::before { border: 1px solid #000000 !important; }
+            .section-card { border: none !important; box-shadow: none !important; background-color: transparent !important; padding: 0 !important; margin-bottom: 50px !important; page-break-inside: avoid; }
+            .letter-marker { position: static !important; display: inline-block; color: #000000 !important; background: none !important; border: 1px solid #000 !important; padding: 2px 10px !important; margin-bottom: 15px !important; font-size: 14pt !important; box-shadow: none !important; }
+            .verse-text { font-size: 16pt !important; color: #000000 !important; line-height: 2; }
+            .prayer-box { background-color: transparent !important; border-right: 3px solid #000000 !important; padding: 0 15px 0 0 !important; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Toolbar header with options -->
+    <div class="toolbar">
+        <div class="toolbar-container">
+            <div class="tool-group">
+                <button class="btn" id="theme-toggle" title="שינוי ערכת נושא">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"></path></svg>
+                    <span>ערכת נושא</span>
+                </button>
+                <button class="btn" id="print-btn" onclick="window.print()" title="הדפסת הקובץ">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 6 2 18 2 18 9"></polyline><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path><rect x="6" y="14" width="12" height="8"></rect></svg>
+                    <span>הדפסה קבועה</span>
+                </button>
+                <button class="btn" id="scroll-toggle" title="גלילה אוטומטית לקריאה ללא ידיים">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="8 17 12 21 16 17"></polyline><polyline points="8 7 12 3 16 7"></polyline><line x1="12" y1="3" x2="12" y2="21"></line></svg>
+                    <span>גלילה אוטומטית</span>
+                </button>
+                <button class="btn install-btn" id="install-btn" title="התקנת האפליקציה במכשיר">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+                    <span>התקנה</span>
+                </button>
+            </div>
+
+            <!-- Autoscroll speed controller -->
+            <div class="scroll-control-panel" id="scroll-panel">
+                <span>מהירות:</span>
+                <input type="range" id="scroll-speed" min="1" max="10" value="3">
+            </div>
+
+            <div class="tool-group">
+                <button class="btn active" id="mode-all" onclick="changeViewMode('all')">טעמים וניקוד</button>
+                <button class="btn" id="mode-vowels" onclick="changeViewMode('vowels')">ניקוד בלבד</button>
+                <button class="btn" id="mode-plain" onclick="changeViewMode('plain')">טקסט פשוט</button>
+            </div>
+
+            <div class="font-slider">
+                <span>גופן:</span>
+                <input type="range" id="font-size-slider" min="16" max="36" value="23">
+                <span id="font-size-val">23px</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="wrapper">
+
+        <div class="cover-page">
+            <div class="cover-bsd">בס"ד • בסיעתא דשמיא</div>
+            <div class="cover-pretitle">סדר לימוד והנצחה</div>
+            <div class="cover-title">אוֹתִיוֹת נְשָׁמָה • תְּהִילִּים</div>
+            <div class="cover-subtitle">קריאה אישית ומשותפת</div>
+            <div class="cover-line"></div>
+            <div class="cover-pretitle" style="margin-top: 25px;">קריאת פרקי תהילים מפרק קי"ט לפי אותיות השם ואותיות נ־ש־מ־ה</div>
+            <div class="cover-dedication">לְעִלּוּי נִשְׁמַת יְרַחְמִיאֵל דָּוִד ע"ה</div>
+            <div class="cover-postdedication">תְּהֵא נִשְׁמָתוֹ צְרוּרָה בִּצְרוֹר הַחַיִּים • ת.נ.צ.ב.ה</div>
+            <div class="cover-line"></div>
+            <div style="font-family: var(--font-sans); margin-top: 25px;">
+                <a href="#intro" class="btn active" style="padding: 10px 25px; font-size: 16px;">התחל קריאה</a>
+            </div>
+        </div>
+
+        <div class="instruction-box" id="intro">
+            <h3 class="instruction-title">סֵדֶר הַקְּרִיאָה</h3>
+            <p style="margin: 0; font-size: 16px;">
+                פרק קי"ט בתהילים בנוי לפי סדר האלף-בית, ובכל אות שמונה פסוקים. נהגו לקרוא לעילוי נשמת המנוח את הפסוקים של האותיות המרכיבות את שמו, ואחריהם את אותיות המילה <b>נְשָׁמָה</b>. לאחר הקריאה אומרים "לאחר הקריאה", "יהי רצון" ותפילת "אל מלא רחמים".
+            </p>
+        </div>
+
+        <div class="navigation-banner">
+            <div class="nav-title">ניווט מהיר לפי סדר הקריאה:</div>
+            <div class="letters-nav">
+                <a href="#psalms-intro" class="nav-dot" title="פרקי פתיחה">פ</a>
+                <span class="nav-separator"></span>
+                <a href="#letter-y1" class="nav-dot" title="י">י</a>
+                <a href="#letter-r" class="nav-dot" title="ר">ר</a>
+                <a href="#letter-h" class="nav-dot" title="ח">ח</a>
+                <a href="#letter-m1" class="nav-dot" title="מ">מ</a>
+                <a href="#letter-y2" class="nav-dot" title="י (שניה)">י</a>
+                <a href="#letter-a" class="nav-dot" title="א">א</a>
+                <a href="#letter-l" class="nav-dot" title="ל">ל</a>
+                <a href="#letter-d1" class="nav-dot" title="ד">ד</a>
+                <a href="#letter-w" class="nav-dot" title="ו">ו</a>
+                <a href="#letter-d2" class="nav-dot" title="ד (שניה)">ד</a>
+                <span class="nav-separator"></span>
+                <a href="#letter-n" class="nav-dot" style="border-color: var(--secondary-color);" title="נ">נ</a>
+                <a href="#letter-sh" class="nav-dot" style="border-color: var(--secondary-color);" title="ש">ש</a>
+                <a href="#letter-m2" class="nav-dot" style="border-color: var(--secondary-color);" title="מ (נשמה)">מ</a>
+                <a href="#letter-h2" class="nav-dot" style="border-color: var(--secondary-color);" title="ה">ה</a>
+                <span class="nav-separator"></span>
+                <a href="#concl" class="nav-dot" title="לאחר הקריאה והתפילות">ת</a>
+            </div>
+        </div>
+
+        <div id="psalms-intro"></div>
+
+        <div class="section-card">
+            <h3 class="section-title">מזמור כ"ג - מִזְמוֹר לְדָוִד</h3>
+            <div class="verse-block">
+                <p class="verse-text" data-all="מִזְמ֥וֹר לְדָוִ֑ד יְהוָ֥ה רֹ֝עִ֗י לֹא אֶחְסָֽר׃ בִּנְא֥וֹת דֶּ֝שֶׁא יַרְבִּיצֵ֑נִי עַל־מֵ֖י מְנֻח֥וֹת יְנַהֲלֵֽנִי׃ נַפְשִׁ֥י יְשׁוֹבֵ֑ב יַֽנְחֵ֥נִי בְמַעְגְּלֵי־צֶ֝֗דֶק לְמַ֣עַן שְׁמֽוֹ׃ גַּ֤ם כִּֽי־אֵלֵ֨ךְ בְּגֵיא צַלְמָ֡וֶת לֹא־אִ֘ירָא רָ֨ע כִּֽי־אַתָּ֪ה עִמָּ֫דִ֥י שִׁבְטְךָ֥ וּמִשְׁעַנְתֶּ֑ךָ הֵ֝֗מָּה יְנַחֲמֻֽנִי׃ תַּעֲרֹ֬ךְ לְפָנַי ׀ שֻׁלְחָ֗ן נֶ֥גֶד צֹרְרָ֑י דִּשַּׁ֖נְתָּ בַשֶּׁ֥מן רֹ֝אשִׁ֗י כּוֹסִ֥י רְוָיָֽה׃ אַ֤ךְ ׀ ט֥וֹב וָחֶ֥סֶד יִרְדְּפוּנִי כָּל־יְמֵ֣י חַיָּ֑י וְשַׁבְתִּ֥י בְּבֵית־יְ֝הוָ֗ה לְאֹ֥רֶךְ יָמִֽים׃">
+                </p>
+            </div>
+        </div>
+
+        <div class="section-card">
+            <h3 class="section-title">מזמור קכ"א - שִׁיר לַמַּעֲלוֹת</h3>
+            <div class="verse-block">
+                <p class="verse-text" data-all="שִׁ֗יר לַֽמַּ֫עֲל֥וֹת אֶשָּׂ֣א עֵ֭ינַי אֶל־הֶהָרִ֑ים מֵ֝אַ֗יִן יָבֹ֥א עֶזְרִֽי׃ עֶ֭זְרִי מֵעִ֣ם יְהוָ֑ה עֹ֝שֵׂה שָׁמַ֥יִם וָאָֽרֶץ׃ אַל־יִתֵּ֣ן לַמּ֥וֹט רַגְלֶ֑ךָ אַל־יָ֝נ֗וּם שֹׁמְרֶֽךָ׃ הִנֵּה לֹֽא־יָ֭נוּם וְלֹא יִישָׁ֑ן שׁ֝וֹמֵר יִשְׂרָאֵֽל׃ יְהוָ֥ה שֹׁמְרֶ֑ךָ יְהוָ֥ה צִ֝לְּךָ֗ עַל־יַ֥ד יְמִינֶֽךָ׃ יוֹמָ֗ם הַשֶּׁ֥מֶשׁ לֹֽא־יַכֶּ֗כָּה וְיָרֵ֥חַ בַּלָּֽיְלָה׃ יְהוָ֥ה יִשְׁמָרְךָ֥ מִכָּל־רָ֑ע יִ֝שְׁמֹר אֶת־נַפְשֶֽׁךָ׃ יְהוָ֥ה יִשְׁמָר־צֵאתְךָ֥ וּבוֹאֶ֑ךָ מֵ֝עַתָּ֗ה וְעַד־עוֹלָֽם׃">
+                </p>
+            </div>
+        </div>
+
+        <h2 style="text-align: center; margin: 40px 0 20px 0; font-size: 26px; color: var(--secondary-color); font-weight: bold;">אותיות השם: יְרַחְמִיאֵל דָּוִד</h2>
+
+        <div class="section-card" id="letter-y1">
+            <span class="letter-marker">אות י'</span>
+            <h3 class="section-title">ירחמיאל • פרק קי"ט - פסוקים ע"ג-פ'</h3>
+            <div class="verse-block">
+                <p class="verse-text" data-all="עג יָדֶ֣יךָ עָ֭שׂוּנִי וַֽיְכוֹנְנ֑וּנִי הֲ֝בִינֵ֗נִי וְאֶלְמְדָ֥ה מִצְוֹתֶֽיךָ׃\nעד יְ֭רֵאֶיךָ יִרְא֣וּנִי וְיִשְׂמָ֑חוּ כִּ֖י לִדְבָרְךָ֣ יִחָֽלְתִּי׃\nעה יָדַ֣עְתִּי יְ֭הוָה כִּי־צֶ֣דֶק מִשְׁפָּטֶ֑יךָ וֶ֝אֱמוּנָ֗ה עִנִּיתָֽנִי׃\nעו יְהִי־נָ֣א חַסְדְּךָ֣ לְנַחֲמֵ֑נִי כְּאִמְרָתְךָ֥ לְעַבְדֶּֽךָ׃\nעז יְבֹא֣וּנִי רַחֲמֶ֣יךָ וְאֶֽחְיֶ֑ה כִּי־ת֝וֹרָתְךָ֗ שַֽׁעֲשֻׁעָֽי׃\nעח יֵבֹ֥שׁוּ זֵ֭דִים כִּי־שֶׁ֥קֶר עִוְּת֑וּנִי אֲ֝נִ֗י אָשִׂ֥יחַ בְּפִקּוּדֶֽיךָ׃\nעט יָשׁ֥וּבוּ לִ֣י יְרֵאֶ֑יךָ וְ֝יֹדְעֵ֗י עֵדֹתֶֽיךָ׃\nפ יְהִֽי־לִבִּ֣י תָמִ֣ים בְּחֻקֶּ֑יךָ לְ֝מַ֗עַן לֹ֥א אֵבֽוֹשׁ׃">
+                </p>
+            </div>
+        </div>
+
+        <div class="section-card" id="letter-r">
+            <span class="letter-marker">אות ר'</span>
+            <h3 class="section-title">ירחמיאל • פרק קי"ט - פסוקים קנ"ג-קס'</h3>
+            <div class="verse-block">
+                <p class="verse-text" data-all="קנג רְאֵֽה־עָנְיִ֥י וְחַלְּצֵ֑נִי כִּי־ת֝וֹרָתְךָ֗ לֹ֥א שָׁכָֽחְתִּי׃\nקנד רִיבָ֥ה רִ֭יבִי וּגְאָלֵ֑נִי לְאִמְרָתְךָ֥ חַיֵּֽנִי׃\nקנה רָ֘ח֤וֹק מֵרְשָׁעִ֨ים יְשׁוּעָ֑ה כִּֽי־חֻ֝קֶּיךָ לֹ֥א דָרָֽשׁוּ׃\nקנו רַחֲמֶ֖יךָ רַבִּ֥ים ׀ יְהוָ֑ה כְּֽמִשְׁפָּטֶ֥יךָ חַיֵּֽנִי׃\nקנז רַ֭בִּים רֹדְפַ֣י וְצָרָ֑י מֵ֝עֵדְוֹתֶ֗יךָ לֹ֥א נָטִֽיתִי׃\nקנח רָאִ֣יתִי בֹ֭גְדִים וָֽאֶתְקוֹטָ֑טָה אֲשֶׁ֥ר אִ֝מְרָתְךָ֗ לֹ֥א שָׁמָֽרוּ׃\nקנט רְ֭אֵה כִּי־פִקּוּדֶ֣יךָ אָהָ֑בְתִּי יְ֝הוָ֗ה כְּֽחַסְדְּךָ֥ חַיֵּֽנִי׃\nקס רֹאשׁ־דְּבָרְךָ֥ אֱמֶ֑ת וּ֝לְעוֹלָ֗ם כָּל־מִשְׁפַּ֥ט צִדְקֶֽךָ׃">
+                </p>
+            </div>
+        </div>
+
+        <div class="section-card" id="letter-h">
+            <span class="letter-marker">אות ח'</span>
+            <h3 class="section-title">ירחמיאל • פרק קי"ט - פסוקים נ"ז-ס"ד</h3>
+            <div class="verse-block">
+                <p class="verse-text" data-all="נז חֶלְקִ֥י יְהוָ֥ה אָמַ֗רְתִּי לִשְׁמֹ֥ר דְּבָרֶֽיךָ׃\nנח חִלִּ֥יתִי פָנֶ֥יךָ בְכָל־לֵ֑ב חָ֝נֵּ֗נִי כְּאִמְרָתֶֽךָ׃\nנט חִשַּׁ֥בְתִּי דְרָכָ֑י וָאָשִׁ֥יבָה רַ֝גְלַ֗י אֶל־עֵדֹתֶֽיךָ׃\nס חַ֭שְׁתִּי וְלֹ֥א הִתְמַהְמָ֑הְתִּי לִ֝שְׁמֹ֗ר מִצְוֹתֶֽיךָ׃\nסא חֶבְלֵ֥י רְשָׁעִ֥ים עִוְּדֻ֑נִי תּ֝וֹרָתְךָ֗ לֹ֥א שָׁכָֽחְתִּי׃\nסב חֲצֽוֹת־לַ֗יְלָה אָ֭קוּם לְהוֹד֥וֹת לָ֑ךְ עַ֝ל מִשְׁפְּטֵ֥י צִדְקֶֽךָ׃\nסג חָבֵ֥ר אָ֭נִי לְכָל־אֲשֶׁ֥ר יְרֵא֑וּךָ וּ֝לְשֹׁמְרֵ֗י פִּקּוּדֶֽיךָ׃\nסד חַסדְּךָ֥ יְ֭הוָה מָלְאָ֥ה הָאָ֗רֶץ חֻקֶּ֥יךָ לַמְּדֵֽנִי׃">
+                </p>
+            </div>
+        </div>
+
+        <div class="section-card" id="letter-m1">
+            <span class="letter-marker">אות מ'</span>
+            <h3 class="section-title">ירחמיאל • פרק קי"ט - פסוקים צ"ז-ק"ד</h3>
+            <div class="verse-block">
+                <p class="verse-text" data-all="צז מָֽה־אָהַ֥בְתִּי תוֹרָתֶ֑ךָ כָּל־הַ֝יּ֗וֹם הִיא שִׂיחָתִֽי׃\nצח מֵ֭אֹ֥יְבַי תְּחַכְּמֵ֥נִי מִצְוֹתֶ֑ךָ כִּ֖י לְעוֹלָ֥ם הִיא־לִֽי׃\nצט מִכָּל־מְלַמְּדַ֥י הִשְׂכַּ֑לְתִּי כִּ֥י עֵ֝דְוֹתֶ֗יךָ שִׂ֣יחָה לִֽי׃\nק מִזְּקֵנִ֥ים אֶתְבּוֹנָ֑ן כִּ֖י פִקּוּדֶ֥יךָ נָצָֽרְתִּי׃\nקא מִכָּל־אֹ֥רַח רָ֭ע כָּלִ֥אתִי רַגְלָ֑י לְ֝מַ֗עַן אֶשְׁמֹ֥ר דְּבָרֶֽךָ׃\nקב מִמִּשְׁפָּטֶ֥יךָ לֹא־סָ֑רְתִּי כִּֽי־אַ֝תָּ֗ה הוֹרֵתָֽנִי׃\nקג מַה־נִּמְלְצוּ לְ֭חִכִּי אִמְרָתֶ֗ךָ מִדְּבַ֥שׁ לְפִֽי׃\nקד מִפִּקּוּדֶ֥יךָ אֶתְבּוֹנָ֑ן עַל־כֵּ֝ן שָׂנֵ֤אתִי ׀ כָּל־אֹ֬רַח שָֽׁקֶר׃">
+                </p>
+            </div>
+        </div>
+
+        <div class="section-card" id="letter-y2">
+            <span class="letter-marker">אות י'</span>
+            <h3 class="section-title">ירחמיאל • פרק קי"ט - פסוקים ע"ג-פ' (חוזר)</h3>
+            <div class="verse-block">
+                <p class="verse-text" data-all="עג יָדֶ֣יךָ עָ֭שׂוּנִי וַֽיְכוֹנְנ֑וּנִי הֲ֝בִינֵ֗נִי וְאֶלְמְדָ֥ה מִצְוֹתֶֽיךָ׃\nעד יְ֭רֵאֶיךָ יִרְא֣וּנִי וְיִשְׂמָ֑חוּ כִּ֖י לִדְבָרְךָ֣ יִחָֽלְתִּי׃\nעה יָדַ֣עְתִּי יְ֭הוָה כִּי־צֶ֣דֶק מִשְׁפָּטֶ֑יךָ וֶ֝אֱמוּנָ֗ה עִנִּיתָֽנִי׃\nעו יְהִי־נָ֣א חַסְדְּךָ֣ לְנַחֲמֵ֑נִי כְּאִמְרָתְךָ֥ לְעַבְדֶּֽךָ׃\nעז יְבֹא֣וּנִי רַחֲמֶ֣יךָ וְאֶֽחְיֶ֑ה כִּי־ת֝וֹרָתְךָ֗ שַֽׁעֲשֻׁעָֽי׃\nעח יֵבֹ֥שׁוּ זֵ֭דִים כִּי־שֶׁ֥קֶר עִוְּת֑וּנִי אֲ֝נִ֗י אָשִׂ֥יחַ בְּפִקּוּדֶֽיךָ׃\nעט יָשׁ֥וּבוּ לִ֣י יְרֵאֶ֑יךָ וְ֝יֹדְעֵ֗י עֵדֹתֶֽיךָ׃\nפ יְהִֽי־לִבִּ֣י תָמִ֣ים בְּחֻקֶּ֑יךָ לְ֝מַ֗עַן לֹ֥א אֵבֽוֹשׁ׃">
+                </p>
+            </div>
+        </div>
+
+        <div class="section-card" id="letter-a">
+            <span class="letter-marker">אות א'</span>
+            <h3 class="section-title">ירחמיאל • פרק קי"ט - פסוקים א'-ח'</h3>
+            <div class="verse-block">
+                <p class="verse-text" data-all="א אַשְׁרֵ֥י תְמִֽימֵי־דָ֑רֶךְ הַֽהֹלְכִ֥ים בְּתוֹרַ֥ת יְהוָֽה׃\nב אַ֭שְׁרֵי נֹצְרֵ֥י עֵדֹתָ֗יו בְּכָל־לֵ֥ב יִדְרְשֽׁוּהוּ׃\nג אַ֭ף לֹֽא־פָעֲלוּ עַוְלָ֑ה בִּדְרָכָ֥יו הָלָֽכוּ׃\nד אַ֭תָּה צִוִּ֥יתָה פִקֻּדֶ֗יךָ לִשְׁמֹ֥ר מְאֹֽד׃\nה אַ֭חֲלַי יִכֹּ֥נוּ דְרָכָ֗י לִשְׁמֹ֥ר חֻקֶּֽיךָ׃\nו אָ֥ז לֹא־אֵב֑וֹשׁ בְּ֝הַבִּיטִ֗י אֶל־כָּל־מִצְוֹתֶֽיךָ׃\nז אוֹדְךָ בְּיֹ֥שֶׁר לֵבָ֑ב בְּ֝לָמְדִ֗י מִשְׁפְּטֵ֥י צִדְקֶֽךָ׃\nח אֶת־חֻקֶּ֥יךָ אֶשְׁמֹר אַֽל־תַּעַזְבֵ֥נִי עַד־מְאֹֽד׃">
+                </p>
+            </div>
+        </div>
+
+        <div class="section-card" id="letter-l">
+            <span class="letter-marker">אות ל'</span>
+            <h3 class="section-title">ירחמיאל • פרק קי"ט - פסוקים פ"ט-צ"ו</h3>
+            <div class="verse-block">
+                <p class="verse-text" data-all="פט לְעוֹלָ֥ם יְהוָ֑ה דְּ֝בָרְךָ֗ נִצָּ֥ב בַּשָּׁמָֽיִם׃\nצ לְדֹ֥ר וָדֹ֥ר אֱמֽוּנָתֶ֑ךָ כּוֹנַ֥נְתָּ אֶ֝רֶץ וַֽתַּעֲמֹֽד׃\nצא לְ֝מִשְׁפָּטֶיךָ עָמְד֣וּ הַיּ֑וֹם כִּ֖י הַכֹּ֥ל עֲבָדֶֽיךָ׃\nצב לוּלֵ֥י תוֹרָתְךָ שַׁעֲשֻׁעָ֑י אָ֝ז אָבַ֥דְתִּי בְעָנְיִֽי׃\nצג לְ֝עוֹלָם לֹא־אֶשְׁכַּ֥ח פִּקּוּדֶ֑יךָ כִּ֥י בָ֝ם חִיִּיתָֽנִי׃\nצד לְֽךָ־אֲ֭נִי הוֹשִׁיעֵ֑נִי כִּ֖י פִקּוּדֶ֣יךָ דָרָֽשְׁתִּי׃\nצה לִ֤י קִוּ֥וּ רְשָׁעִ֥ים לְאַבְּדֵ֑נִי עֵ֝דֹתֶ֗יךָ אֶתְבּוֹנָֽן׃\nצו לְֽכָל תִּ֭כְלָה רָאִ֥יתִי קֵ֑ץ רְחָבָ֖ה מִצְוָתְךָ֥ מְאֹֽד׃">
+                </p>
+            </div>
+        </div>
+
+        <div class="section-card" id="letter-d1">
+            <span class="letter-marker">אות ד'</span>
+            <h3 class="section-title">דוד • פרק קי"ט - פסוקים כ"ה-ל"ב</h3>
+            <div class="verse-block">
+                <p class="verse-text" data-all="כה דָּֽבְקָ֥ה לֶעָפָ֥ר נַפְשִׁ֑י חַ֝יֵּ֗נִי כִּדְבָרֶֽךָ׃\nכו דְּרָכַ֥י סִ֭פַּרְתִּי וַֽתַּעֲנֵ֗נִי לַמְּדֵ֥נִי חֻקֶּֽיךָ׃\nכז דֶּֽרֶךְ־פִּקּוּדֶ֥יךָ הֲבִינֵ֑נִי וְ֝אָשִׂ֗יחָה בְּנִפְלְאוֹתֶֽיךָ׃\nכח דָּלְפָ֥ה נַ֭פְשִׁי מִתּוּגָ֑ה קַ֝יְּמֵ֗נִי כִּדְבָרֶֽךָ׃\nכט דֶּֽרֶךְ־שֶׁ֭קֶר הָסֵ֥ר מִמֶּ֑נִּי וְֽתוֹרָתְךָ֥ חָנֵּֽנִי׃\nל דֶּֽרֶךְ־אֱמוּנָ֥ה בָחָ֑רְתִּי מִשְׁפָּטֶ֥יךָ שִׁוִּֽיתִי׃\nלא דָּבַ֥קְתִּי בְעֵֽדְוֹתֶ֑יךָ יְ֝הוָ֗ה אַל־תְּבִישֵֽׁנִי׃\nלב דֶּֽרֶךְ־מִצְוֹתֶ֥יךָ אָר֑וּץ כִּ֖י תַרְחִ֥יב לִבִּֽי׃">
+                </p>
+            </div>
+        </div>
+
+        <div class="section-card" id="letter-w">
+            <span class="letter-marker">אות ו'</span>
+            <h3 class="section-title">דוד • פרק קי"ט - פסוקים מ"א-מ"ח</h3>
+            <div class="verse-block">
+                <p class="verse-text" data-all="מא וִֽיבֹאֻ֣נִי חֲסָדֶ֣ךָ יְהוָ֑ה תְּ֝שֽׁוּעָתְךָ֗ כְּאִמְרָתֶֽךָ׃\nמב וְאֶֽעֱנֶ֥ה חֹרְפִ֥י דָבָ֑ר כִּֽי־בָ֝טַחְתִּי בִּדְבָרֶֽךָ׃\nמג וְֽאַל־תַּצֵּ֨ל מִפִּ֧י דְבַר־אֱמֶ֥ת עַד־מְאֹ֑ד כִּ֖י לְמִשְׁפָּטֶ֥ךָ יִחָֽלְתִּי׃\nמד וְאֶשְׁמְרָ֖ה תוֹרָתְךָ֥ תָמִ֗יד לְעוֹלָ֥ם וָעֶֽד׃\nמה וְאֶתְהַלְּכָ֥ה בָרְחָבָ֑ה כִּ֖י פִקֻּדֶ֥יךָ דָרָֽשְׁתִּי׃\nמו וַאֲדַבְּרָ֥ה בְ֭עֵדֹתֶיךָ נֶ֥גֶד מְלָכִ֗ים וְלֹ֥א אֵבֽוֹשׁ׃\nמז וְאֶשְׁתַּֽעֲשַׁ֥ע בְּמִצְוֹתֶ֗יךָ אֲשֶׁ֥ר אָהָֽבְתִּי׃\nמח וְאֶשָּֽׂא־כַפַּ֨י ׀ אֶל־מִ֭צְוֹתֶיךָ אֲשֶׁ֥ר אָהָ֗בְתִּי וְאָשִׂ֥יחַ בְּחֻקֶּֽיךָ׃">
+                </p>
+            </div>
+        </div>
+
+        <div class="section-card" id="letter-d2">
+            <span class="letter-marker">אות ד'</span>
+            <h3 class="section-title">דוד • פרק קי"ט - פסוקים כ"ה-ל"ב (חוזר)</h3>
+            <div class="verse-block">
+                <p class="verse-text" data-all="כה דָּֽבְקָ֥ה לֶעָפָ֥ר נַפְשִׁ֑י חַ֝יֵּ֗נִי כִּדְבָרֶֽךָ׃\nכו דְּרָכַ֥י סִ֭פַּרְתִּי וַֽתַּעֲנֵ֗נִי לַמְּדֵ֥נִי חֻקֶּֽיךָ׃\nכז דֶּֽרֶךְ־פִּקּוּדֶ֥יךָ הֲבִינֵ֑נִי וְ֝אָשִׂ֗יחָה בְּנִפְלְאוֹתֶֽיךָ׃\nכח דָּלְפָ֥ה נַ֭פְשִׁי מִתּוּגָ֑ה קַ֝יְּמֵ֗נִי כִּדְבָרֶֽךָ׃\nכט דֶּֽרֶךְ־שֶׁ֭קֶר הָסֵ֥ר מִמֶּ֑נִּי וְֽתוֹרָתְךָ֥ חָנֵּֽנִי׃\nל דֶּֽרֶךְ־אֱמוּנָ֥ה בָחָ֑רְתִּי מִשְׁפָּטֶ֥יךָ שִׁוִּֽיתִי׃\nלא דָּבַ֥קְתִּי בְעֵֽדְוֹתֶ֑יךָ יְ֝הוָ֗ה אַל־תְּבִישֵֽׁנִי׃\nלב דֶּֽרֶךְ־מִצְוֹתֶ֥יךָ אָר֑וּץ כִּ֖י תַרְחִ֥יב לִבִּֽי׃">
+                </p>
+            </div>
+        </div>
+
+
+        <h2 style="text-align: center; margin: 40px 0 20px 0; font-size: 26px; color: var(--secondary-color); font-weight: bold;">אותיות נשמ"ה</h2>
+
+        <div class="section-card" id="letter-n">
+            <span class="letter-marker" style="background-color: var(--secondary-color);">אות נ'</span>
+            <h3 class="section-title">נשמה • פרק קי"ט - פסוקים ק"ה-קי"ב</h3>
+            <div class="verse-block">
+                <p class="verse-text" data-all="קה נֵר־לְרַגְלִ֥י דְבָרֶ֑ךָ וְ֝א֗וֹר לִנְתִיבָתִֽי׃\nקו נִשְׁבַּ֥עְתִּי וָאֲקַיֵּ֑מָה לִ֝שְׁמֹ֗ר מִשְׁפְּטֵ֥י צִדְקֶֽךָ׃\nקז נַעֲנֵ֥יתִי עַד־מְאֹ֑ד יְ֝הוָ֗ה חַיֵּ֥נִי כִדְבָרֶֽךָ׃\nקח נִדְבוֹת פִּ֭י רְצֵה־נָ֥א יְהוָ֑ה וּֽמִשְׁפָּטֶ֥יךָ לַמְּדֵֽנִי׃\nקט נַפְשִׁ֥י בְכַפִּ֥י תָמִ֑יד וְ֝תֽוֹרָתְךָ֗ לֹא שָׁכָֽחְתִּי׃\nקי נָתְנוּ רְשָׁעִ֥ים פַּ֥ח לִ֑י וּ֝מִפִּקּוּדֶ֗יךָ לֹא תָעִֽיתִי׃\nקיא נָחַ֥לְתִּי עֵדְוֹתֶ֣יךָ לְעוֹלָ֑ם כִּֽי־שְׂשׂ֥וֹן לִבִּ֥י הֵֽמָּה׃\nקיב נָטִ֥יתִי לִ֝בִּי לַעֲשׂ֥וֹת חֻקֶּ֗יךָ לְעוֹלָ֥ם עֵֽקֶב׃">
+                </p>
+            </div>
+        </div>
+
+        <div class="section-card" id="letter-sh">
+            <span class="letter-marker" style="background-color: var(--secondary-color);">אות ש'</span>
+            <h3 class="section-title">נשמה • פרק קי"ט - פסוקים קס"א-קס"ח</h3>
+            <div class="verse-block">
+                <p class="verse-text" data-all="קסא שָׂ֭רִים רְדָפ֥וּנִי חִנָּ֑ם וּ֝מִדְּבָרְךָ֗ פָּחַ֥ד לִבִּֽי׃\nקסב שָׂ֥שׂ אָ֭נֹכֽי עַל־אִמְרָתֶ֑ךָ כְּ֝מוֹצֵ֗א שָׁלָ֥ל רָֽב׃\nקסג שֶׁ֥קֶר שָׂ֭נֵאתִי וַאֲתַעֵ֑בָה תּוֹרָתְךָ֥ אָהָֽבְתִּי׃\nקסד שֶׁ֭בַע בַּיּוֹם הִלַּלְתִּ֑יךָ עַ֝ל מִשְׁפְּטֵ֥י צִדְקֶֽךָ׃\nקסה שָׁל֥וֹם רָ֭ב לְאֹהֲבֵ֥י תוֹרָתֶ֑ךָ וְאֵֽין־לָ֥מוֹ מִכְשֽׁוֹל׃\nקסו שִׂבַּ֥רְתִּי לִֽישׁוּעָתְךָ֣ יְהוָ֑ה וּֽמִצְוֹתֶ֥יךָ עָשִֽׂיתִי׃\nקסז שָֽׁמְרָ֣ה נַ֭פְשִׁי עֵדֹתֶ֑יךָ וָאֹהֲבֵם מְאֹֽד׃\nקסח שָׁמַ֥רְתִּי פִ֭קּוּדֶיךָ וְעֵדֹתֶ֑יךָ כִּ֖י כָל־דְּרָכַ֥י נֶגְדֶּֽךָ׃">
+                </p>
+            </div>
+        </div>
+
+        <div class="section-card" id="letter-m2">
+            <span class="letter-marker" style="background-color: var(--secondary-color);">אות מ'</span>
+            <h3 class="section-title">נשמה • פרק קי"ט - פסוקים צ"ז-ק"ד (חוזר)</h3>
+            <div class="verse-block">
+                <p class="verse-text" data-all="צז מָֽה־אָהַ֥בְתִּי תוֹרָתֶ֑ךָ כָּל־הַ֝יּ֗וֹם הִיא שִׂיחָתִֽי׃\nצח מֵ֭אֹ֣יְבַי תְּחַכְּמֵ֥נִי מִצְוֹתֶ֑ךָ כִּ֖י לְעוֹלָ֥ם הִיא־לִֽי׃\nצט מִכָּל־מְלַמְּדַ֥י הִשְׂכַּ֑לְתִּי כִּ֥י עֵ֝דְוֹתֶ֗יךָ שִׂ֣יחָה לִֽי׃\nק מִזְּקֵנִ֥ים אֶתְבּוֹנָ֑ן כִּ֖י פִקּוּדֶ֥יךָ נָצָֽרְתִּי׃\nקא מִכָּל־אֹ֥רַח רָ֭ע כָּלִ֣אתִי רַגְלָ֑י לְ֝מַ֗עַן אֶשְׁמֹר דְּבָרֶֽךָ׃\nקב מִמִּשְׁפָּטֶ֥יךָ לֹא־סָ֑רְתִּי כִּֽי־אַ֝תָּ֗ה הוֹרֵתָֽנִי׃\nקג מַה־נִּמְלְצוּ לְ֭חִכִּי אִמְרָתֶ֗ךָ מִדְּבַ֥שׁ לְפִֽי׃\nקד מִפִּקּוּדֶ֥יךָ אֶתְבּוֹנָ֑ן עַל־כֵּ֝ן שָׂנֵ֤אתִי ׀ כָּל־אֹ֬רַח שָֽׁקֶר׃">
+                </p>
+            </div>
+        </div>
+
+        <div class="section-card" id="letter-h2">
+            <span class="letter-marker" style="background-color: var(--secondary-color);">אות ה'</span>
+            <h3 class="section-title">נשמה • פרק קי"ט - פסוקים ל"ג-מ'</h3>
+            <div class="verse-block">
+                <p class="verse-text" data-all="לג הוֹרֵ֥נִי יְהוָ֖ה דֶּ֥רֶךְ חֻקֶּ֑יךָ וְאֶצְּרֶ֥נָּה עֵ֥קֶב׃\nלד הֲ֭בִינֵנִי וְאֶצְּרָ֥ה תֽוֹרָתֶ֗ךָ וְאֶשְׁמְרֶ֥נָּה בְכָל־לֵ֥ב׃\nלה הַ֭דְרִיכֵנִי בִּנְתִ֥יב מִצְוֹתֶ֑ךָ כִּי־ב֥וֹ חָפָ֥צְתִּי׃\nלו הַט־לִ֭בִּי אֶל־עֵדְוֹתֶ֑יךָ וְאַ֥ל אֶל־בָּֽצַע׃\nלז הַעֲבֵ֥ר עֵ֭ינַי מֵרְא֫וֹת שָׁ֥וְא בִּדְרָכֶ֥ךָ חַיֵּֽנִי׃\nלח הָקֵ֥ם לְ֝עַבְדְּךָ אִמְרָתֶ֑ךָ אֲ֝שֶׁ֗ר לְיִרְאָתֶֽךָ׃\nלט הַעֲבֵ֥ר חֶ֭רְפָּתִי אֲשֶׁ֥ר יָגֹ֑רְתִּי כִּ֖י מִשְׁפָּטֶ֥יךָ טוֹבִֽים׃\nמ הִ֭נֵּה תָּאַ֥בְתִּי לְפִקֻּדֶ֑יךָ בְּצִדְקָתְךָ֥ חַיֵּֽנִי׃">
+                </p>
+            </div>
+        </div>
+
+        <div id="concl"></div>
+
+        <div class="section-card">
+            <h3 class="section-title">לְאַחַר הַקְּרִיאָה</h3>
+            <div class="verse-block">
+                <p class="verse-text" data-all="מִ֥י יִתֵּ֣ן מִצִּיּוֹן֮ יְשׁוּע֪וֹת יִשְׂרָ֫אֵ֥ל בְּשׁ֣וּב יְ֭הוָה שְׁב֣וּת עַמּ֑וֹ יָגֵ֥ל יַ֝עֲקֹ֗ב יִשְׂמַ֥ח יִשְׂרָאֵֽל׃\nוּתְשׁוּעַת צַדִּיקִים מֵיְהֹוָה מָעוּזָּם בְּעֵת צָרָה׃\nוַֽיַּעְזְרֵ֥ם יְהוָ֨ה וַֽיְפַלְּטֵ֑ם יְפַלְּטֵ֥ם מֵ֝רְשָׁעִ֗ים וְיוֹשִׁיעֵ֥ם כִּי־חָ֥סוּ בֽוֹ׃">
+                </p>
+            </div>
+        </div>
+
+        <div class="section-card">
+            <h3 class="section-title">יְהִי רָצוֹן מִלְּפָנֶיךָ</h3>
+            <div class="prayer-box">
+                <p class="verse-text" style="font-size: 21px; font-weight: 500; text-align: justify;" id="yehi-ratzon">
+                    יְהִי רָצוֹן מִלְּפָנֶיךָ יְהֹוָה אֱלֹהֵינוּ וֵאלֹהֵי אָבוֹתֵינוּ, שֶׁבִּזְכוּת מִזְמוֹרֵי הַתְּהִלִּים שֶׁקָּרָ֫אנוּ לְפָנֶיךָ, וּבִזְכוּת פְּסוּקֵיהֶם וְתֵיבוֹתֵיהֶם וְאוֹתִיּוֹתֵיהֶם וּנְקֻדּוֹתֵיהֶם, וְטַעֲמֵיהֶם, וּבִזְכוּת שְׁמוֹתֶיךָ הַקְּדוֹשִׁים וְהַטְּהוֹרִים הַיּוֹצְאִים מֵהֶם, שֶׁתְּכַפֶּר לָנוּ עַל כָּל חַטֹּאותֵינוּ וְתִסְלַח לָנוּ עַל כָּל עֲוֺנוֹתֵינוּ, וְתִמְחַל לָנוּ עַל כָּל פְּשָׁעֵינוּ שֶׁחָטָ֫אנוּ וְשֶׁעָוִ֫ינוּ וְשֶׁפָּשַׁ֫עְנוּ לְפָנֶיךָ. וְהַחֲזִירֵנוּ בִּתְשׁוּבָה שְׁלֵמָה לְפָנֶיךָ, וְהַדְרִיכֵנוּ לַעֲבוֹדָתֶךָ וְתִפְתַּח לִבֵּנוּ בְּתַלְמוּד תּוֹרָתֶךָ. וְתִשְׁלַח רְפוּאָה שְׁלֵמָה לְחוֹלֵי עַמֶּךָ. וְתִקְרָא לַשְּׁבוּיִים דְּרוֹר וְלַאֲסוּרִים פְּקַח קוֹחַ, וּלְכָל הוֹלְכֵי דְרָכִים וְעוֹבְרֵי יַמִּים וּנְהָרוֹת מֵעַמְּךָ יִשְׂרָאֵל תַּצִּילֵם מִכָּל צַעַר וְנֶזֶק, וְתַגִּיעֵם לִמְחוֹז חֶפְצָם לְחַיִּים וּלְשָׁלוֹם. וְתִפְקֹד לְכָל חֲשׂוּכֵי בָנִים בְּזֶרַע שֶׁל קַיָּמָא לַעֲבוֹדָתֶךָ וּלְיִרְאָתֶךָ. וּתְבַטֵּל מֵעָלֵינוּ וּמִכָּל עַמְּךָ בֵּית יִשְׂרָאֵל, בְּכָל מָקוֹם שֶׁהֵם, כָּל גְּזֵרוֹת קָשׁוֹת וְרָעוֹת, וְתַטֵּה לֵב הַמַּלְכוּת עָלֵינוּ לְטוֹבָה. וְתִשְׁלַח בְּרָכָה וְהַצְלָחָה בְּכָל מַעֲשֵׂה יָדֵינוּ, וְהָכֵן פַּרְנָסָתֵנוּ מִיָּדְךָ הָרְחָבָה וְהַמְּלֵאָה, וְלֹא יִצְטָרְכוּ עַמְּךָ בֵּית יִשְׂרָאֵל זֶה לָזֶה וְלֹא לְעַם אַחֵר. וּתְמַהֵר וְתָחִישׁ לִגְאֻלָּ֫תֵנוּ וְתִבְנֶה בֵּית מִקְדָּשֵׁנוּ וְתִפְאַרְתֵּנוּ. וּבִזְכוּת שְׁלוֹשׁ עֶשְׂרֵה מִדּוֹתֶיךָ שֶׁל רַחֲמִים הַכְּתוּבִים בְּתוֹרָתֶךָ, שֶׁנֶּאֱמַר: יְהֹוָה, יְהֹוָה, אֵל רַחוּם וְחַנּוּן, אֶרֶךְ אַפַּיִם וְרַב חֶסֶד וֶאֱמֶת, נֹצֵר חֶסֶד לָאֲלָפִים נֹשֵׂא עָוֺן וָפֶשַׁע וְחַטָּאָה וְנַקֵּה׃ עָזְרֵנוּ אֱלֹהֵי יִשְׁעֵנוּ עַל דְּבַר כְּבוֹד שְׁמֶךָ, וְהַצִּילֵנוּ וְכַפֵּר עַל חַטֹּאותֵינוּ לְמַעַן שְׁמֶךָ׃ בָּרוּךְ יְהֹוָה לְעוֹלָם, אָמֵן וְאָמֵן׃
+                </p>
+            </div>
+        </div>
+
+        <div class="section-card">
+            <h3 class="section-title">אֵל מָלֵא רַחֲמִים</h3>
+
+            <div class="personalize-panel">
+                <div class="input-title" style="font-weight: bold; margin-bottom: 8px;">התאמה אישית של תפילת האזכרה:</div>
+                <div class="input-group">
+                    <label for="parent-name">שם האב או האם של המנוח:</label>
+                    <input type="text" id="parent-name" class="input-field" placeholder="לדוגמה: משה / שרה">
+                    <span>(הטקסט יתעדכן אוטומטית למטה)</span>
+                </div>
+            </div>
+
+            <div class="prayer-box">
+                <p class="verse-text" style="font-size: 21px; font-weight: 500; text-align: justify;" id="el-maleh">
+                    אֵל מָלֵא רַחֲמִים שׁוֹכֵן בַּמְּרוֹמִים, הַמְצֵא מְנוּחָה נְכוֹנָה עַל כַּנְפֵי הַשְּׁכִינָה, בְּמַעֲלוֹת קְדוֹשִׁים וּטְהוֹרִים כְּזוֹהַר הָרָקִיעַ מַזְהִירִים, לְנִשְׁמַת <b>יְרַחְמִיאֵל דָּוִד</b> <span id="relative-phrase">בֶּן __________</span> שֶׁהָלַךְ לְעוֹלָמוֹ, עֲבוּר שֶׁנָּדְבוּ צְדָקָה בְּעַד הַזְכָּרַת נִשְׁמָתוֹ, בְּגַן עֵדֶן תְּהֵא מְנוּחָתוֹ. לָכֵן בַּעַל הָרַחֲמִים יַסְתִּירֵהוּ בְּסֵתֶר כְּנָפָיו לְעוֹלָמִים, וְיִצְרֹר בִּצְרוֹר הַחַיִּים אֶת נִשְׁמָתוֹ, יְהֹוָה הוּא נַחֲלָתוֹ, וְיָנוּחַ בְּשָׁלוֹם עַל מִשְׁכָּבוֹ, וְנֹאמַר אָמֵן.
+                </p>
+                <p class="verse-text" style="font-size: 21px; font-weight: bold; text-align: left; margin-top: 15px;">
+                    תַּנְצְבָּ"ה
+                </p>
+            </div>
+        </div>
+
+        <footer>
+            הופק והותאם לקריאה קבועה ולדפוס לעילוי נשמת יְרַחְמִיאֵל דָּוִד ע"ה • טקסט התהילים J. Alan Groves Center CC-2.5
+        </footer>
+    </div>
+
+    <button class="float-btn" id="back-to-top" title="חזרה לראש הדף">▲</button>
+
+    <script>
+        let currentMode = 'all'; // 'all', 'vowels', 'plain'
+        let autoscrollInterval = null;
+        let isAutoscrolling = false;
+        let currentThemeIndex = 0;
+        const themes = ['', 'dark', 'sepia'];
+        const STORE = 'tp-prefs';
+
+        function loadPrefs() { try { return JSON.parse(localStorage.getItem(STORE) || '{}'); } catch (e) { return {}; } }
+        function savePref(k, v) { try { const p = loadPrefs(); p[k] = v; localStorage.setItem(STORE, JSON.stringify(p)); } catch (e) {} }
+
+        // Clean diacritics using precise Unicode patterns
+        function cleanText(text, targetMode) {
+            if (text == null) return '';
+            if (targetMode === 'all') return text;
+            // Remove cantillation marks (te'amim) + paseq/sof-pasuq accents
+            let cleaned = text.replace(/[\u0591-\u05AF\u05BF\u05C0\u05C3]/g, '');
+            if (targetMode === 'plain') {
+                // Also remove nikud / points
+                cleaned = cleaned.replace(/[\u05B0-\u05C7]/g, '');
+            }
+            return cleaned;
+        }
+
+        // Apply selected mode (with teamim, with vowels only, or plain text)
+        function changeViewMode(mode) {
+            currentMode = mode;
+
+            document.querySelectorAll('.tool-group .btn').forEach(btn => btn.classList.remove('active'));
+            const modeBtn = document.getElementById('mode-' + mode);
+            if (modeBtn) modeBtn.classList.add('active');
+
+            document.querySelectorAll('.verse-text').forEach(p => {
+                if (p.id === 'el-maleh') return; // handled separately to preserve the input span
+                const originalText = p.getAttribute('data-all');
+                if (!originalText) return;
+
+                // Split on either a real newline or the two-character sequence "\n"
+                let lines = originalText.split(/\r?\n|\\n/);
+                let processedLines = lines.map(line => {
+                    if (!line.trim()) return '';
+                    return cleanText(line, mode);
+                });
+                p.innerHTML = processedLines.join('<br>');
+            });
+
+            // Yehi Ratzon (may not have data-all until the init backfill runs)
+            const yehiRatzonEl = document.getElementById('yehi-ratzon');
+            if (yehiRatzonEl && yehiRatzonEl.getAttribute('data-all')) {
+                yehiRatzonEl.innerHTML = cleanText(yehiRatzonEl.getAttribute('data-all'), mode);
+            }
+
+            updateElMalehText();
+            savePref('mode', mode);
+        }
+
+        // Parent name personalization live update
+        const parentNameInput = document.getElementById('parent-name');
+        const relativePhrase = document.getElementById('relative-phrase');
+        function updateElMalehText() {
+            const parentName = parentNameInput.value.trim();
+            const phrase = parentName ? ('בֶּן ' + parentName) : 'בֶּן __________';
+            relativePhrase.innerHTML = '<b>' + cleanText(phrase, currentMode) + '</b>';
+        }
+        parentNameInput.addEventListener('input', updateElMalehText);
+
+        // Font size slider
+        const fontSlider = document.getElementById('font-size-slider');
+        const fontSizeVal = document.getElementById('font-size-val');
+        function applyFontSize(size) {
+            fontSizeVal.textContent = size + 'px';
+            fontSlider.value = size;
+            document.querySelectorAll('.verse-text').forEach(p => { p.style.fontSize = size + 'px'; });
+        }
+        fontSlider.addEventListener('input', (e) => { applyFontSize(e.target.value); savePref('font', e.target.value); });
+
+        // Theme rotation (Light -> Dark -> Sepia)
+        const themeToggle = document.getElementById('theme-toggle');
+        function applyThemeIndex(i) {
+            currentThemeIndex = ((i % themes.length) + themes.length) % themes.length;
+            const newTheme = themes[currentThemeIndex];
+            if (newTheme) document.documentElement.setAttribute('data-theme', newTheme);
+            else document.documentElement.removeAttribute('data-theme');
+            const meta = document.querySelector('meta[name="theme-color"]');
+            if (meta) meta.setAttribute('content', newTheme === 'dark' ? '#0f141c' : (newTheme === 'sepia' ? '#f4ecd8' : '#1a365d'));
+            savePref('theme', currentThemeIndex);
+        }
+        themeToggle.addEventListener('click', () => applyThemeIndex(currentThemeIndex + 1));
+
+        // Floating button + active-nav tracking
+        const backToTopBtn = document.getElementById('back-to-top');
+        window.addEventListener('scroll', () => {
+            backToTopBtn.classList.toggle('visible', window.scrollY > 300);
+            updateActiveNavigation();
+        }, { passive: true });
+        backToTopBtn.addEventListener('click', () => { if (isAutoscrolling) stopAutoscroll(); window.scrollTo({ top: 0, behavior: 'smooth' }); });
+
+        function updateActiveNavigation() {
+            const scrollPos = window.scrollY + 120;
+            const sections = document.querySelectorAll('.section-card[id]');
+            let activeId = '';
+            sections.forEach(section => { if (scrollPos >= section.offsetTop) activeId = section.getAttribute('id'); });
+            document.querySelectorAll('.letters-nav a').forEach(a => {
+                a.classList.toggle('active-nav', a.getAttribute('href') === ('#' + activeId));
+            });
+        }
+
+        // Autoscroll
+        const scrollToggle = document.getElementById('scroll-toggle');
+        const scrollPanel = document.getElementById('scroll-panel');
+        const scrollSpeedInput = document.getElementById('scroll-speed');
+        function startAutoscroll() {
+            if (autoscrollInterval) clearInterval(autoscrollInterval);
+            const speed = parseInt(scrollSpeedInput.value);
+            const delay = 110 - (speed * 10);
+            autoscrollInterval = setInterval(() => {
+                window.scrollBy(0, 1);
+                if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight - 2) stopAutoscroll();
+            }, delay);
+        }
+        function stopAutoscroll() {
+            clearInterval(autoscrollInterval); autoscrollInterval = null; isAutoscrolling = false;
+            scrollToggle.classList.remove('active'); scrollPanel.classList.remove('active');
+        }
+        scrollToggle.addEventListener('click', () => {
+            if (isAutoscrolling) { stopAutoscroll(); }
+            else { isAutoscrolling = true; scrollToggle.classList.add('active'); scrollPanel.classList.add('active'); startAutoscroll(); }
+        });
+        scrollSpeedInput.addEventListener('input', () => { if (isAutoscrolling) startAutoscroll(); });
+        window.addEventListener('wheel', () => { if (isAutoscrolling) stopAutoscroll(); }, { passive: true });
+        window.addEventListener('touchmove', () => { if (isAutoscrolling) stopAutoscroll(); }, { passive: true });
+
+        // Init: backfill data-all, restore saved preferences, render
+        document.addEventListener('DOMContentLoaded', () => {
+            document.querySelectorAll('.verse-text').forEach(p => {
+                if (!p.getAttribute('data-all')) p.setAttribute('data-all', p.innerHTML.trim());
+            });
+            const prefs = loadPrefs();
+            applyThemeIndex(typeof prefs.theme === 'number' ? prefs.theme : 0);
+            applyFontSize(prefs.font || 23);
+            changeViewMode(prefs.mode || 'all');
+        });
+
+        // ---- PWA: service worker + install prompt ----
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => navigator.serviceWorker.register('sw.js').catch(() => {}));
+        }
+        let deferredPrompt = null;
+        const installBtn = document.getElementById('install-btn');
+        window.addEventListener('beforeinstallprompt', (e) => { e.preventDefault(); deferredPrompt = e; installBtn.classList.add('show'); });
+        installBtn.addEventListener('click', () => {
+            if (!deferredPrompt) return;
+            deferredPrompt.prompt();
+            deferredPrompt.userChoice.finally(() => { deferredPrompt = null; installBtn.classList.remove('show'); });
+        });
+        window.addEventListener('appinstalled', () => installBtn.classList.remove('show'));
+    </script>
+</body>
+</html>

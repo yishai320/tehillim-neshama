@@ -1,0 +1,17 @@
+{
+  "name": "תהילים אותיות נשמה • ירחמיאל דוד ע\"ה",
+  "short_name": "אותיות נשמה",
+  "description": "סדר תהילים ותפילה לעילוי נשמת המנוח ירחמיאל דוד ע\"ה — פרקי אותיות השם ואותיות נשמ\"ה מפרק קי\"ט, עם תפילות יהי רצון ואל מלא רחמים.",
+  "lang": "he",
+  "dir": "rtl",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#fbf9f4",
+  "theme_color": "#1a365d",
+  "icons": [
+    { "src": "icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any maskable" },
+    { "src": "icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable" }
+  ]
+}
