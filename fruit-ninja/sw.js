@@ -6,7 +6,7 @@
    The game has no external assets (no fonts, no images, no audio files), so the
    shell below is everything it needs.
 */
-var CACHE = 'fruit-ninja-v1';
+var CACHE = 'fruit-ninja-v2';
 var SHELL = [
   './',
   './index.html',

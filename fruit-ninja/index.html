@@ -28,8 +28,19 @@
   }
   #wrap {
     position: relative;
+    flex: none;
     width: min(100vw, calc(100vh * (800 / 600)));
     height: min(100vh, calc(100vw * (600 / 800)));
+  }
+  /* Portrait phones: rotate the whole game 90° so it always plays in
+     landscape. Sizes are viewport-swapped: after rotation the wrap's width
+     runs down the screen and its height runs across it. */
+  @media (orientation: portrait) {
+    #wrap {
+      width: min(100vh, calc(100vw * (800 / 600)));
+      height: min(100vw, calc(100vh * (600 / 800)));
+      transform: rotate(90deg);
+    }
   }
   canvas {
     position: absolute; inset: 0;
@@ -472,6 +483,14 @@
   // ============================== Input ==================================
   function canvasPos(e) {
     const rect = canvas.getBoundingClientRect();
+    if (rect.height > rect.width) {
+      // canvas is CSS-rotated 90° clockwise (portrait fallback):
+      // screen-down is game-x, screen-left is game-y
+      return {
+        x: (e.clientY - rect.top) * (W / rect.height),
+        y: (rect.right - e.clientX) * (H / rect.width)
+      };
+    }
     return {
       x: (e.clientX - rect.left) * (W / rect.width),
       y: (e.clientY - rect.top) * (H / rect.height)
@@ -1034,7 +1053,23 @@
   requestAnimationFrame(frame);
 
   // ============================== State transitions ======================
+  function goLandscape() {
+    // Real fullscreen + orientation lock where allowed (Android Chrome, the
+    // installed PWA/APK). Where it isn't (iOS Safari, desktop), the calls
+    // fail silently and the CSS portrait-rotation fallback takes over.
+    if (!window.matchMedia('(pointer: coarse)').matches) return;
+    const el = document.documentElement;
+    const fs = document.fullscreenElement ? Promise.resolve()
+      : (el.requestFullscreen ? el.requestFullscreen() : Promise.reject());
+    Promise.resolve(fs).catch(() => {}).then(() => {
+      if (screen.orientation && screen.orientation.lock) {
+        screen.orientation.lock('landscape').catch(() => {});
+      }
+    });
+  }
+
   function startGame() {
+    goLandscape();
     game.state = 'playing';
     game.ending = false;
     game.endedByBomb = false;
