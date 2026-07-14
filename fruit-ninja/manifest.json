@@ -1,0 +1,17 @@
+{
+  "name": "Fruit Ninja",
+  "short_name": "Fruit Ninja",
+  "description": "A fast, offline-ready Fruit Ninja arcade game — swipe to slice fruit, dodge the bombs, chase combos.",
+  "lang": "en",
+  "dir": "ltr",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "fullscreen",
+  "orientation": "landscape",
+  "background_color": "#14100c",
+  "theme_color": "#4a2e16",
+  "icons": [
+    { "src": "icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any maskable" },
+    { "src": "icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable" }
+  ]
+}
