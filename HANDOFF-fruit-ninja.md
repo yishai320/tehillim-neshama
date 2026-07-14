@@ -3,8 +3,11 @@
 Everything you need to understand, host, rebuild, and update the Fruit Ninja
 arcade game. Keep this file with the project.
 
-**Live site (once merged to main):** https://yishai320.github.io/tehillim-neshama/fruit-ninja/
-**Repo (yours):** https://github.com/yishai320/tehillim-neshama (folder: `fruit-ninja/`)
+**Live site (yours):** https://yishai320.github.io/Fruit-ninja-clone/
+**Repo (yours):** https://github.com/yishai320/Fruit-ninja-clone
+
+(The game's source also lives in the `fruit-ninja/` folder of the
+`tehillim-neshama` repo, where it was developed.)
 
 ---
 
@@ -65,23 +68,13 @@ an installable app:
 
 ## 4. Hosting it (two options)
 
-### Option A — it's already in your existing repo
+### Option A — its own repo / its own address (what you did)
 
-The game lives in the `fruit-ninja/` folder of your `tehillim-neshama` repo.
-Because GitHub Pages is already enabled there, **once this branch is merged
-into `main`** the game is automatically live at:
+The game is live in its own repo at
+**https://yishai320.github.io/Fruit-ninja-clone/**. This is how it was set up,
+and how to redo it if ever needed:
 
-> https://yishai320.github.io/tehillim-neshama/fruit-ninja/
-
-Nothing else to configure — the Tehillim app stays at the root URL, the game
-gets its own sub-address, and each keeps its own separate offline cache (the
-two service workers don't interfere with each other).
-
-### Option B — its own repo / its own address
-
-If you'd rather have a clean URL like `yishai320.github.io/fruit-ninja/`:
-
-1. Create a new public repo (e.g. `fruit-ninja`).
+1. Create a new public repo (yours is `Fruit-ninja-clone`).
 2. Unzip `fruit-ninja-app.zip` on your computer → you get the 7 files.
 3. In the repo: **Add file ▸ Upload files**, then drag in **all 7 files
    themselves** (not the zip, not a folder). Confirm `index.html` is at the top
@@ -99,12 +92,22 @@ or a folder was uploaded instead of the files, or Pages wasn't enabled.
 https://app.netlify.com/drop, and you get a live `https://….netlify.app` link
 instantly — no repo, no Pages settings.
 
+### Option B — inside the tehillim-neshama repo
+
+The game's source also lives in the `fruit-ninja/` folder of the
+`tehillim-neshama` repo. Once that branch is merged into `main`, the same game
+is additionally reachable at
+https://yishai320.github.io/tehillim-neshama/fruit-ninja/ — the Tehillim app
+stays at the root URL, and the two service workers keep separate offline
+caches without interfering. You don't need both; the `Fruit-ninja-clone` repo
+is the live home.
+
 ---
 
 ## 5. Making the Android APK with PWABuilder
 
 1. Go to https://www.pwabuilder.com
-2. Paste your live URL (e.g. `https://yishai320.github.io/tehillim-neshama/fruit-ninja/`)
+2. Paste your live URL: `https://yishai320.github.io/Fruit-ninja-clone/`
 3. It analyzes the site (it should find the manifest, service worker, and icons).
 4. Choose **Package For Stores ▸ Android**.
 5. Download the generated package. It contains:
@@ -127,14 +130,14 @@ thin shell that opens your live hosted site. That means:
 Because the APK loads your hosted site, **you usually don't need to rebuild the
 APK to change the game** — just update the website:
 
-1. Edit `fruit-ninja/index.html` (all the graphics and logic live there).
-2. Re-upload it to the repo (**Add file ▸ Upload files**, replace the file,
-   commit) — or drag the new folder onto Netlify again.
+1. Edit `index.html` (all the graphics and logic live there).
+2. Re-upload it to the `Fruit-ninja-clone` repo (**Add file ▸ Upload files**,
+   replace the file, commit) — or drag the new folder onto Netlify again.
 3. The change appears on the live site within a minute, and installed apps pick
    it up next time they're online.
 
 If you change any of the 7 files, also bump the version string at the top of
-`sw.js` (`fruit-ninja-v1` → `fruit-ninja-v2`) so phones that already cached the
+`sw.js` (`fruit-ninja-v2` → `fruit-ninja-v3`) so phones that already cached the
 old version fetch the new one.
 
 To change the app's name or icon *inside the APK*, you'd re-run PWABuilder
@@ -158,8 +161,10 @@ script — no code archaeology needed:
 
 ## 8. Quick reference
 
-- Live site (after merge): https://yishai320.github.io/tehillim-neshama/fruit-ninja/
-- Repo: https://github.com/yishai320/tehillim-neshama → `fruit-ninja/` folder
+- Live site: https://yishai320.github.io/Fruit-ninja-clone/
+- Repo: https://github.com/yishai320/Fruit-ninja-clone
+- Source also kept in: https://github.com/yishai320/tehillim-neshama →
+  `fruit-ninja/` folder
 - Host (own repo): upload **unzipped files**, `index.html` at root, enable
   Pages under Settings.
 - Host (fast alt): https://app.netlify.com/drop
